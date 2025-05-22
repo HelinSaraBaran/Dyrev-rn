@@ -24,3 +24,26 @@ body {
 .custom-navbar {
     background-color: #4da685; 
 }
+/* Effekt når man holder musen over eller siden er aktiv */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #ffffff; /* hvid streg */
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+

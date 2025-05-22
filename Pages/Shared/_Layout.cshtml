@@ -32,28 +32,30 @@
 
                 <!-- Menu -->
                 <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav">
+
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/Index">Forside</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Index") ? "active" : "")" asp-page="/Index">Forside</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/About">Om os</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("About") ? "active" : "")" asp-page="/About">Om os</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/Adopt">Adopter</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Adopt") ? "active" : "")" asp-page="/Adopt">Adopter</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/BookVisit">Book besøg</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("BookVisit") ? "active" : "")" asp-page="/BookVisit">Book besøg</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/EmployeeList">Medarbejdere</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("EmployeeList") ? "active" : "")" asp-page="/EmployeeList">Medarbejdere</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/Activity">Aktiviteter</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Activity") ? "active" : "")" asp-page="/Activity">Aktiviteter</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-page="/Bookings">Bookingoversigt</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Bookings") ? "active" : "")" asp-page="/Bookings">Bookingoversigt</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
