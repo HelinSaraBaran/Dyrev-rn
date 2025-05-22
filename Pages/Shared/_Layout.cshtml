@@ -1,56 +1,80 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
+    @RenderSection("Styles", required: false)
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Dyreværn</title>
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Dyreværn.styles.css" asp-append-version="true" />
 </head>
 <body>
+
+    <!-- Header med grøn navbar og logo -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light custom-navbar border-bottom mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-success px-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Dyreværn</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <!-- Logo og navn -->
+                <a class="navbar-brand d-flex align-items-center" asp-page="/Index">
+                    <img src="~/images/DVlog.png" alt="Logo" style="height: 40px; border-radius: 4px;" />
+                    <span class="ms-2">Dyreværn</span>
+                </a>
+
+                <!-- Mobilknap -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Index">Forside</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Adopt">Adopter</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/BookVisit">Book besøg</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/EmployeeList">Medarbejdere</a>
-                            </li>
-                        </ul>
 
+                <!-- Menu -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/Index">Forside</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/About">Om os</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/Adopt">Adopter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/BookVisit">Book besøg</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/EmployeeList">Medarbejdere</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/Activity">Aktiviteter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-page="/Bookings">Bookingoversigt</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Indhold -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer -->
+    <footer class="border-top footer text-muted text-center mt-4">
         <div class="container">
-            &copy; 2025 - Dyreværn - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - Dyreværn - <a asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
