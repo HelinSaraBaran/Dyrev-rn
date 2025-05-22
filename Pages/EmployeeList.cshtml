@@ -1,0 +1,46 @@
+﻿@page
+@model Dyreværn.Pages.EmployeeListModel
+@{
+    ViewData["Title"] = "Medarbejderoversigt";
+}
+
+<link rel="stylesheet" href="~/css/employee.css" />
+
+<h1>Medarbejderoversigt</h1>
+
+<h2>Tilføj ny medarbejder</h2>
+<form method="post" asp-page-handler="Add" class="add-employee">
+    <input type="text" name="Name" placeholder="Navn" required />
+    <input type="email" name="Email" placeholder="E-mail" required />
+    <input type="text" name="Role" placeholder="Rolle" required />
+    <button type="submit">Tilføj medarbejder</button>
+</form>
+
+<h2>Eksisterende medarbejdere</h2>
+<table class="employee-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Navn</th>
+            <th>Email</th>
+            <th>Rolle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Domain.Models.Employee employee in Model.Employees)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.Name</td>
+                <td>@employee.Email</td>
+                <td>@employee.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Fjern medarbejder</h2>
+<form method="post" asp-page-handler="Remove" class="remove-employee">
+    <input type="number" name="RemoveId" placeholder="Indtast ID" required />
+    <button type="submit">Fjern</button>
+</form>

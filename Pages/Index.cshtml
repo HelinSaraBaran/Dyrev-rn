@@ -1,19 +1,40 @@
 ﻿@page
 @model Dyreværn.Pages.IndexModel
 @{
-    ViewData["Title"] = "Velkommen til Dyreværn";
+    ViewData["Title"] = "Velkommen til Dyreværnet";
 }
+
 <link rel="stylesheet" href="~/css/index.css" />
 
+<!-- Hero / Velkomst -->
+<header class="hero">
+    <h1>Velkommen til Roskilde Dyreværn</h1>
+    <p>Et trygt hjem for alle dyr</p>
+</header>
 
-<div class="text-center">
-    <h1 class="display-4">Velkommen til Dyreværn</h1>
-    <p>Et trygt hjem for dyr i nød – klar til adoption og kærlige hjem.</p>
+<!-- Blog-afsnit -->
+<section class="blog">
+    <h2>Om vores arbejde</h2>
+    <p>
+        Hos Dyreværnet tror vi på, at alle dyr fortjener et trygt og kærligt hjem.
+        Vi arbejder hver dag for at redde, pleje og finde nye familier til forladte og udsatte dyr.
+    </p>
+    <p>
+        Vores motivation stammer fra kærligheden til dyr og troen på, at medmenneskelighed også gælder vores firbenede venner.
+        Gennem adoption, oplysning og frivilligt arbejde skaber vi en bedre fremtid for dyrene – ét liv ad gangen.
+    </p>
 
-    <div class="button-links">
-        <a class="btn btn-primary" asp-page="/Adopt">Se dyr til adoption</a>
-        <a class="btn btn-secondary" asp-page="/BookVisit">Book et besøg</a>
-        <a class="btn btn-outline-dark" asp-page="/EmployeeList">Administrer medarbejdere</a>
+    <div class="blog-image-container">
+        <img src="/images/kat.jpg" alt="En kat der søger et hjem" class="blog-image" />
+        <p class="image-caption">Et trygt hjem starter med én beslutning ❤️</p>
     </div>
+</section>
 
-</div>
+<!-- Footer -->
+<footer class="footer">
+    <h3>Kontakt os</h3>
+    <p>Dyreværnet Danmark</p>
+    <p>Adresse: Dyregladevej 12, 4000 Roskilde</p>
+    <p>Telefon: +45 12 34 56 78</p>
+    <p>Email: kontakt@dyrevaernet.dk</p>
+</footer>
