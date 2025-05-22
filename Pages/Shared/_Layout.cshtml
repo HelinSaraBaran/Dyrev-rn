@@ -35,11 +35,9 @@
                     <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Index") ? "active" : "")" asp-page="/Index">Forside</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("About") ? "active" : "")" asp-page="/About">Om os</a>
                         </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Adopt") ? "active" : "")" asp-page="/Adopt">Adopter</a>
                         </li>
