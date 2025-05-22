@@ -1,10 +1,16 @@
 ﻿@page
-@model IndexModel
+@model Dyreværn.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Velkommen til Dyreværn";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Velkommen til Dyreværn</h1>
+    <p>Et trygt hjem for dyr i nød – klar til adoption og kærlige hjem.</p>
+
+    <div style="margin-top: 20px;">
+        <a class="btn btn-primary" asp-page="/Adopt">Se dyr til adoption</a>
+        <a class="btn btn-secondary" asp-page="/BookVisit">Book et besøg</a>
+        <a class="btn btn-outline-dark" asp-page="/EmployeeList">Administrer medarbejdere</a>
+    </div>
 </div>

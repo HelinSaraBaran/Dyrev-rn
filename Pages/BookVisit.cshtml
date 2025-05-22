@@ -1,0 +1,37 @@
+﻿@page
+@model Dyreværn.Pages.BookVisitModel
+@{
+    ViewData["Title"] = "Book et besøg";
+}
+
+<h1>Book besøg hos @Model.AnimalName</h1>
+
+@if (Model.Success)
+{
+    <!-- Vises når bookingen er gennemført -->
+    <p><strong>Tak for din booking, @Model.VisitorName!</strong></p>
+    <p>Vi har sendt en bekræftelse til: @Model.Email</p>
+    <p>Besøgsdato: @Model.VisitDate.ToShortDateString()</p>
+}
+else
+{
+    <!-- Formular til booking -->
+    <form method="post">
+        <div>
+            <label for="VisitorName">Dit navn:</label><br />
+            <input type="text" id="VisitorName" name="VisitorName" required />
+        </div>
+        <br />
+        <div>
+            <label for="Email">Din e-mail:</label><br />
+            <input type="email" id="Email" name="Email" required />
+        </div>
+        <br />
+        <div>
+            <label for="VisitDate">Dato for besøg:</label><br />
+            <input type="date" id="VisitDate" name="VisitDate" required />
+        </div>
+        <br />
+        <button type="submit">Book besøg</button>
+    </form>
+}

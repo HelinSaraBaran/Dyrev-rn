@@ -1,0 +1,38 @@
+﻿@page
+@model Dyreværn.Pages.AdoptModel
+@{
+    ViewData["Title"] = "Adopter et dyr";
+}
+
+<link rel="stylesheet" href="~/css/adopter.css" />
+
+
+<h1>Adopter et dyr</h1>
+
+<!-- Form til filtrering -->
+<form method="get">
+    <label for="speciesFilter">Filtrer efter art:</label>
+    <select name="Species" id="speciesFilter">
+        <option value="">Alle</option>
+        <option value="Hund">Hund</option>
+        <option value="Kat">Kat</option>
+        <option value="Kanin">Kanin</option>
+    </select>
+    <button type="submit">Filtrer</button>
+</form>
+
+<!-- Viser dyr i kort -->
+<div class="animal-container">
+    @foreach (Domain.Models.Animal animal in Model.Animals)
+    {
+        <div class="animal-card">
+            <img src="@animal.ImagePath" alt="@animal.Name" />
+            <h3>@animal.Name</h3>
+            <p><strong>Køn:</strong> @animal.Gender</p>
+            <p><strong>Art:</strong> @animal.Species</p>
+            <p>@animal.Description</p>
+            <!-- Link til detaljer/booking -->
+            <a href="/BookVisit?animalId=@animal.Id">Book besøg</a>
+        </div>
+    }
+</div>
