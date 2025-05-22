@@ -1,4 +1,3 @@
-// Codebehind til medarbejderoversigten
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
@@ -40,7 +39,7 @@ namespace Dyreværn.Pages
         {
             Employee newEmployee = new Employee
             {
-                Id = new System.Random().Next(1000, 9999), // Simuleret ID
+                Id = new System.Random().Next(1000, 9999), 
                 Name = Name,
                 Email = Email,
                 Role = Role

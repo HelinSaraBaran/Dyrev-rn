@@ -1,4 +1,3 @@
-// Codebehind til BookVisit-siden
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
@@ -9,18 +8,18 @@ namespace Dyreværn.Pages
 {
     public class BookVisitModel : PageModel
     {
-        // Dyrets ID bliver sendt med i URL'en (?animalId=1)
+        // Dyrets ID bliver sendt 
         [BindProperty(SupportsGet = true)]
         public int AnimalId { get; set; }
 
-        // Navnet på det valgte dyr – vises øverst på siden
+        // Navnet på det valgte dyr, vises øverst på siden
         public string AnimalName { get; set; }
 
         // Brugeren skriver sit navn
         [BindProperty]
         public string VisitorName { get; set; }
 
-        // Brugeren skriver sin e-mail
+        // Brugeren skriver sin mail
         [BindProperty]
         public string Email { get; set; }
 
@@ -36,7 +35,17 @@ namespace Dyreværn.Pages
         {
             // Opretter service og henter alle dyr
             AnimalService service = new AnimalService();
-            Animal selectedAnimal = service.GetAllAnimals().Find(a => a.Id == AnimalId);
+            List<Animal> animals = service.GetAllAnimals();
+            Animal selectedAnimal = null;
+
+            foreach (Animal animal in animals)
+            {
+                if (animal.Id == AnimalId)
+                {
+                    selectedAnimal = animal;
+                    break;
+                }
+            }
 
             // Finder dyrets navn ud fra det valgte ID
             if (selectedAnimal != null)
@@ -45,10 +54,11 @@ namespace Dyreværn.Pages
             }
         }
 
+
         // Når brugeren trykker "Book besøg" (POST)
         public void OnPost()
         {
-            // Opretter nyt visit-objekt med data fra formular
+            // Opretter nyt visit objekt med data fra formular
             Visit newVisit = new Visit
             {
                 VisitorName = VisitorName,
