@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* Lys grøn navbar */
+.custom-navbar {
+    background-color: #4da685; 
+}
