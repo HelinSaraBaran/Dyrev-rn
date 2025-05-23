@@ -31,6 +31,8 @@
             <p><strong>Køn:</strong> @animal.Gender</p>
             <p><strong>Art:</strong> @animal.Species</p>
             <p>@animal.Description</p>
+            <p><strong>Steriliseret:</strong> @(animal.IsSterilized ? "✅" : "❌")</p>
+            <p><strong>Vaccineret:</strong> @(animal.IsVaccinated ? "✅" : "❌")</p>
             <!-- Link til detaljer/booking -->
             <a href="/BookVisit?animalId=@animal.Id">Book besøg</a>
         </div>
