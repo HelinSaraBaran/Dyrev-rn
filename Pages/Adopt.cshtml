@@ -34,7 +34,10 @@
             <p><strong>Steriliseret:</strong> @(animal.IsSterilized ? "✅" : "❌")</p>
             <p><strong>Vaccineret:</strong> @(animal.IsVaccinated ? "✅" : "❌")</p>
             <!-- Link til detaljer/booking -->
+            <a href="/AdoptDetails/@animal.Id">Se detaljer</a>
+            <br />
             <a href="/BookVisit?animalId=@animal.Id">Book besøg</a>
+
         </div>
     }
 </div>

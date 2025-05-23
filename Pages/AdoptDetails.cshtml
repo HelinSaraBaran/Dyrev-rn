@@ -1,0 +1,35 @@
+﻿@page "{id:int}"
+@model Dyreværn.Pages.AdoptDetailsModel
+@{
+    ViewData["Title"] = "Detaljer for " + Model.Animal.Name;
+}
+
+<h1>@Model.Animal.Name</h1>
+
+<img src="@Model.Animal.ImagePath" alt="@Model.Animal.Name" width="250" />
+
+<p><strong>Art:</strong> @Model.Animal.Species</p>
+<p><strong>Køn:</strong> @Model.Animal.Gender</p>
+<p><strong>Steriliseret:</strong> @(Model.Animal.IsSterilized ? "✅" : "❌")</p>
+<p><strong>Vaccineret:</strong> @(Model.Animal.IsVaccinated ? "✅" : "❌")</p>
+<p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
+
+<h3>📋 Besøgslog</h3>
+
+@if (Model.Animal.VisitLog.Count == 0)
+{
+    <p>Ingen registrerede besøg endnu.</p>
+}
+else
+{
+    <ul>
+        @for (int i = 0; i < Model.Animal.VisitLog.Count; i++)
+        {
+            <li>
+                @Model.Animal.VisitLog[i].Date.ToShortDateString()
+                – @Model.Animal.VisitLog[i].Type
+                – @Model.Animal.VisitLog[i].Description
+            </li>
+        }
+    </ul>
+}
