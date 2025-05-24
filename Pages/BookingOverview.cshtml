@@ -1,0 +1,40 @@
+﻿@page
+@model Dyreværn.Pages.BookingOverviewModel
+@{
+    ViewData["Title"] = "Bookingoversigt";
+}
+
+<h1>📅 Bookingoversigt</h1>
+
+@if (Model.Bookings.Count == 0)
+{
+    <p>Der er endnu ingen bookinger.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Dyr (ID)</th>
+                <th>Navn</th>
+                <th>Email</th>
+                <th>Besøgsdato</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Domain.Models.Booking booking in Model.Bookings)
+            {
+                <tr>
+                    <td>@booking.Id</td>
+                    <td>@booking.AnimalId</td>
+                    <td>@booking.CustomerName</td>
+                    <td>@booking.Email</td>
+                    <td>@booking.VisitDate.ToShortDateString()</td>
+                    <td>@booking.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

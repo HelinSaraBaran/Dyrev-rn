@@ -4,40 +4,39 @@
     ViewData["Title"] = "Adopter et dyr";
 }
 
+<!-- Tilknyt CSS -->
 <link rel="stylesheet" href="~/css/adopter.css" />
 
-
-<h1>Adopter et dyr</h1>
+<h1 class="mt-4">Adopter et dyr</h1>
 
 <!-- Form til filtrering -->
-<form method="get">
+<form method="get" class="mb-4">
     <label for="speciesFilter">Filtrer efter art:</label>
-    <select name="Species" id="speciesFilter">
+    <select name="Species" id="speciesFilter" class="form-select w-auto d-inline-block mx-2">
         <option value="">Alle</option>
         <option value="Hund">Hund</option>
         <option value="Kat">Kat</option>
         <option value="Kanin">Kanin</option>
     </select>
-    <button type="submit">Filtrer</button>
+    <button type="submit" class="btn btn-success">Filtrer</button>
 </form>
 
-<!-- Viser dyr i kort -->
-<div class="animal-container">
+<!-- Vis alle dyr i kort -->
+<div class="animal-container d-flex flex-wrap gap-4">
     @foreach (Domain.Models.Animal animal in Model.Animals)
     {
-        <div class="animal-card">
-            <img src="@animal.ImagePath" alt="@animal.Name" />
-            <h3>@animal.Name</h3>
+        <div class="animal-card border p-3 shadow rounded" style="width: 250px;">
+            <img src="@animal.ImagePath" alt="@animal.Name" class="img-fluid mb-2" />
+            <h4>@animal.Name</h4>
             <p><strong>Køn:</strong> @animal.Gender</p>
             <p><strong>Art:</strong> @animal.Species</p>
             <p>@animal.Description</p>
             <p><strong>Steriliseret:</strong> @(animal.IsSterilized ? "✅" : "❌")</p>
             <p><strong>Vaccineret:</strong> @(animal.IsVaccinated ? "✅" : "❌")</p>
-            <!-- Link til detaljer/booking -->
-            <a href="/AdoptDetails/@animal.Id">Se detaljer</a>
-            <br />
-            <a href="/BookVisit?animalId=@animal.Id">Book besøg</a>
 
+            <!-- Knapper -->
+            <a href="/AdoptDetails/@animal.Id" class="btn btn-primary btn-sm mb-1 w-100">Se detaljer</a>
+            <a href="/BookVisit/@animal.Id" class="btn btn-outline-success btn-sm w-100">Book besøg</a>
         </div>
     }
 </div>

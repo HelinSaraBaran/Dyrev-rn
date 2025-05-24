@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Domain.Models;
 using Service;
 using System.Collections.Generic;
@@ -25,34 +25,38 @@ namespace Dyreværn.Pages
         [BindProperty]
         public int RemoveId { get; set; }
 
-        // Instans af service
+        // Service der håndterer medarbejderdata
         private EmployeeService _service = new EmployeeService();
 
-        // Viser siden og henter alle medarbejdere
+        // Kører når siden åbnes – henter alle medarbejdere
         public void OnGet()
         {
             Employees = _service.GetAllEmployees();
         }
 
-        // Tilføjer en ny medarbejder
+        // Kører når man tilføjer en ny medarbejder
         public IActionResult OnPostAdd()
         {
-            Employee newEmployee = new Employee
-            {
-                Id = new System.Random().Next(1000, 9999), 
-                Name = Name,
-                Email = Email,
-                Role = Role
-            };
+            // Opretter nyt objekt og sætter data
+            Employee newEmployee = new Employee();
+            newEmployee.Name = Name;
+            newEmployee.Email = Email;
+            newEmployee.Role = Role;
 
+            // Tilføjer medarbejderen via service
             _service.AddEmployee(newEmployee);
+
+            // Går tilbage til siden (så vi undgår genindsendelse)
             return RedirectToPage();
         }
 
-        // Fjerner en medarbejder
+        // Kører når man vil fjerne en medarbejder
         public IActionResult OnPostRemove()
         {
+            // Fjerner medarbejder med angivet ID
             _service.RemoveEmployee(RemoveId);
+
+            // Går tilbage til siden
             return RedirectToPage();
         }
     }

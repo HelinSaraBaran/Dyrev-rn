@@ -37,26 +37,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("About") ? "active" : "")" asp-page="/About">Om os</a>
                         </li>
-                       
+
                         <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Adopt") ? "active" : "")" asp-page="/Adopt">Adopter</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("BookVisit") ? "active" : "")" asp-page="/BookVisit">Book besøg</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("BookingInfo") ? "active" : "")" asp-page="/BookingInfo">Book besøg</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("EmployeeList") ? "active" : "")" asp-page="/EmployeeList">Medarbejdere</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Activity") ? "active" : "")" asp-page="/Activity">Aktiviteter</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("Bookings") ? "active" : "")" asp-page="/Bookings">Bookingoversigt</a>
+                            <a class="nav-link text-white @(ViewContext.ActionDescriptor.DisplayName.Contains("BookingOverview") ? "active" : "")" asp-page="/BookingOverview">Bookingoversigt</a>
                         </li>
 
                     </ul>
                 </div>
-            </div>
+
         </nav>
     </header>
 
