@@ -1,60 +1,60 @@
-﻿@page
-@model Dyreværn.Pages.CreateAnimalModel
-@{
-    ViewData["Title"] = "Opret nyt dyr";
-}
+﻿@page  
+@model Dyreværn.Pages.CreateAnimalModel  
+@{  
+   ViewData["Title"] = "Opret nyt dyr";  
+}  
 
-<h1>Opret et nyt dyr</h1>
+<h1>Opret et nyt dyr</h1>  
 
-<form method="post">
-    <div>
-        <label>Navn:</label>
-        <input type="text" asp-for="Animal.Name" required />
-    </div>
-    <div>
-        <label>Art:</label>
-        <input type="text" asp-for="Animal.Species" required />
-    </div>
-    <div>
-        <label>Race:</label>
-        <input type="text" asp-for="Animal.Race" />
-    </div>
-    <div>
-        <label>Køn:</label>
-        <input type="text" asp-for="Animal.Gender" required />
-    </div>
-    <div>
-        <label>Chipnummer:</label>
-        <input type="text" asp-for="Animal.ChipNumber" />
-    </div>
-    <div>
-        <label>Særlige kendetegn:</label>
-        <input type="text" asp-for="Animal.SpecialMarks" />
-    </div>
-    <div>
-        <label>Størrelse:</label>
-        <input type="text" asp-for="Animal.Size" />
-    </div>
-    <div>
-        <label>Fødselsår:</label>
-        <input type="number" asp-for="Animal.BirthYear" />
-    </div>
-    <div>
-        <label>Steriliseret:</label>
-        <input type="checkbox" asp-for="Animal.IsSterilized" />
-    </div>
-    <div>
-        <label>Vaccineret:</label>
-        <input type="checkbox" asp-for="Animal.IsVaccinated" />
-    </div>
-    <div>
-        <label>Billedsti:</label>
-        <input type="text" asp-for="Animal.ImagePath" />
-    </div>
-    <div>
-        <label>Beskrivelse:</label>
-        <textarea asp-for="Animal.Description"></textarea>
-    </div>
+<form method="post">  
+   <div>  
+       <label>Navn:</label>  
+       <input type="text" asp-for="Animal.Name" required />  
+   </div>  
+   <div>  
+       <label>Art:</label>  
+       <input type="text" asp-for="Animal.Species" required />  
+   </div>  
+   <div>  
+       <label>Race:</label>  
+       <input type="text" asp-for="Animal.Race" />  
+   </div>  
+   <div>  
+       <label>Køn:</label>  
+       <input type="text" asp-for="Animal.Gender" required />  
+   </div>  
+   <div>  
+       <label>Chipnummer:</label>  
+       <input type="text" asp-for="Animal.ChipNumber" />  
+   </div>  
+   <div>  
+       <label>Særlige kendetegn:</label>  
+       <input type="text" asp-for="Animal.SpecialMarks" />  
+   </div>  
+   <div>  
+       <label>Størrelse:</label>  
+       <input type="text" asp-for="Animal.Size" />  
+   </div>  
+   <div>  
+       <label>Fødselsår:</label>  
+       <input type="number" asp-for="Animal.BirthYear" />  
+   </div>  
+   <div>  
+       <label>Steriliseret:</label>  
+       <input type="checkbox" asp-for="Animal.IsSterilized" />  
+   </div>  
+   <div>  
+       <label>Vaccineret:</label>  
+       <input type="checkbox" asp-for="Animal.IsVaccinated" />  
+   </div>  
+   <div>  
+       <label>Billedsti:</label>  
+       <input type="text" asp-for="Animal.ImagePath" />  
+   </div>  
+   <div>  
+       <label>Beskrivelse:</label>  
+       <textarea asp-for="Animal.Description">Beskrivelse</textarea>  
+   </div>  
 
-    <button type="submit">Gem dyr</button>
+   <button type="submit">Gem dyr</button>  
 </form>
