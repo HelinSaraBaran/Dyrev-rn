@@ -6,34 +6,65 @@
 
 <h1>@Model.Animal.Name</h1>
 
-<img src="@Model.Animal.ImagePath" alt="@Model.Animal.Name" width="250" />
+<div class="animal-details">
+    <img src="@Model.Animal.ImagePath" alt="@Model.Animal.Name" class="img-fluid mb-3" width="250" />
 
-<p><strong>Art:</strong> @Model.Animal.Species</p>
-<p><strong>Køn:</strong> @Model.Animal.Gender</p>
-<p><strong>Steriliseret:</strong> @(Model.Animal.IsSterilized ? "✅" : "❌")</p>
-<p><strong>Vaccineret:</strong> @(Model.Animal.IsVaccinated ? "✅" : "❌")</p>
-<p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
+    <p><strong>Art:</strong> @Model.Animal.Species</p>
+    <p><strong>Race:</strong> @Model.Animal.Race</p>
+    <p><strong>Køn:</strong> @Model.Animal.Gender</p>
+    <p><strong>Størrelse:</strong> @Model.Animal.Size</p>
+    <p><strong>Fødselsår:</strong> @Model.Animal.BirthYear</p>
+    <p><strong>Chipnummer:</strong> @Model.Animal.ChipNumber</p>
+    <p><strong>Særlige kendetegn:</strong> @Model.Animal.SpecialMarks</p>
+    <p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
+    <p><strong>Steriliseret:</strong> @(Model.Animal.IsSterilized ? "✅" : "❌")</p>
+    <p><strong>Vaccineret:</strong> @(Model.Animal.IsVaccinated ? "✅" : "❌")</p>
 
-<h3>📋 Besøgslog</h3>
-<a href="/BookVisit/@Model.Animal.Id">
-    <button>Book et besøg</button>
-</a>
+    <h3 class="mt-4">📋 Besøgslog</h3>
 
+    @if (Model.Animal.VisitLog.Count == 0)
+    {
+        <p>Ingen registrerede besøg endnu.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (Domain.Models.VisitLogEntry log in Model.Animal.VisitLog)
+            {
+                <li>
+                    <strong>@log.Date.ToString("dd-MM-yyyy HH:mm")</strong> –
+                    @log.Type: @log.Notes
+                </li>
+            }
+        </ul>
+    }
 
-@if (Model.Animal.VisitLog.Count == 0)
-{
-    <p>Ingen registrerede besøg endnu.</p>
-}
-else
-{
-    <ul>
-        @for (int i = 0; i < Model.Animal.VisitLog.Count; i++)
-        {
-            <li>
-                @Model.Animal.VisitLog[i].Date.ToShortDateString()
-                – @Model.Animal.VisitLog[i].Type
-                – @Model.Animal.VisitLog[i].Description
-            </li>
-        }
-    </ul>
-}
+    <h4 class="mt-4">➕ Tilføj nyt besøg</h4>
+
+    <form method="post">
+        <div class="mb-2">
+            <label for="VisitDate">Dato:</label>
+            <input type="datetime-local" asp-for="VisitDate" class="form-control" required />
+        </div>
+
+        <div class="mb-2">
+            <label for="VisitType">Type:</label>
+            <select asp-for="VisitType" class="form-select" required>
+                <option value="">-- Vælg type --</option>
+                <option>Dyrlægebesøg</option>
+                <option>Kunde</option>
+                <option>Vaccination</option>
+                <option>Andet</option>
+            </select>
+        </div>
+
+        <div class="mb-2">
+            <label for="VisitNotes">Noter:</label>
+            <textarea asp-for="VisitNotes" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Tilføj besøg</button>
+    </form>
+
+    <a href="/Adopt" class="btn btn-secondary mt-3">Tilbage</a>
+</div>

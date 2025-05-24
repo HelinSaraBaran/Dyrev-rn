@@ -9,46 +9,42 @@ namespace Dyreværn.Pages
 {
     public class AdoptDetailsModel : PageModel
     {
-        // Service der henter og gemmer dyredata
         private AnimalService _service = new AnimalService();
 
-        // Det valgte dyr vises på siden
         public Animal Animal { get; set; }
 
-        // Egenskaber til at oprette ny besøgslogpost
+        // Bind properties til besøgslog
         [BindProperty]
-        public DateTime VisitDate { get; set; } // Dato for besøget
+        public DateTime VisitDate { get; set; }
 
         [BindProperty]
-        public string VisitType { get; set; }   // Type: fx dyrlæge eller kunde
+        public string VisitType { get; set; }
 
         [BindProperty]
-        public string VisitDescription { get; set; } // Beskrivelse af besøget
+        public string VisitNotes { get; set; }
 
-        // Kører når siden åbnes med et id
+        // GET – vis detaljer for dyret
         public IActionResult OnGet(int id)
         {
             List<Animal> animals = _service.GetAllAnimals();
 
-            // Finder dyret ud fra id
             for (int i = 0; i < animals.Count; i++)
             {
                 if (animals[i].Id == id)
                 {
                     Animal = animals[i];
-                    return Page(); // Vis siden
+                    return Page();
                 }
             }
 
-            return NotFound(); // Hvis intet dyr findes
+            return NotFound();
         }
 
-        // Kører når man tilføjer et besøg
+        // POST – tilføj besøg
         public IActionResult OnPost(int id)
         {
             List<Animal> animals = _service.GetAllAnimals();
 
-            // Finder dyret igen
             for (int i = 0; i < animals.Count; i++)
             {
                 if (animals[i].Id == id)
@@ -59,13 +55,12 @@ namespace Dyreværn.Pages
                     VisitLogEntry newEntry = new VisitLogEntry();
                     newEntry.Date = VisitDate;
                     newEntry.Type = VisitType;
-                    newEntry.Description = VisitDescription;
+                    newEntry.Notes = VisitNotes;
 
-                    // Tilføjer til dyrets log og gemmer
                     Animal.VisitLog.Add(newEntry);
                     _service.SaveAnimals(animals);
 
-                    return RedirectToPage(new { id = id }); // Genindlæs siden
+                    return RedirectToPage(new { id = id });
                 }
             }
 
