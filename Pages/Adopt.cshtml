@@ -10,8 +10,6 @@
 <!-- Sideoverskrift -->
 <h1 class="mt-4">Adopter et dyr</h1>
 
-
-
 <!-- Formular til at filtrere efter art -->
 <form method="get" class="mb-4">
     <label for="speciesFilter">Filtrer efter art:</label>
@@ -29,7 +27,7 @@
     @foreach (Domain.Models.Animal animal in Model.Animals)
     {
         <div class="animal-card border p-3 shadow rounded" style="width: 250px;">
-            <img src="@animal.ImagePath" alt="@animal.Name" class="img-fluid mb-2" />
+            <img src="@Url.Content("~/" + animal.ImagePath)" alt="@animal.Name" class="img-fluid mb-2" />
 
             <h4>@animal.Name</h4>
             <p><strong>Køn:</strong> @animal.Gender</p>
