@@ -2,27 +2,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
 using Service;
+using System.Collections.Generic;
 using System;
-using Domain.Models;
-using Service;
-
 
 namespace Dyreværn.Pages
 {
+    // PageModel til booking af besøg hos et bestemt dyr
     public class BookVisitModel : PageModel
     {
-        // Dyrets ID bliver sendt 
+        // Dyrets ID (sendes som query parameter)
         [BindProperty(SupportsGet = true)]
         public int AnimalId { get; set; }
 
-        // Navnet på det valgte dyr, vises øverst på siden
+        // Navnet på det valgte dyr
         public string AnimalName { get; set; }
 
-        // Brugeren skriver sit navn
+        // Brugeren indtaster navn
         [BindProperty]
         public string VisitorName { get; set; }
 
-        // Brugeren skriver sin mail
+        // Brugeren indtaster e-mail
         [BindProperty]
         public string Email { get; set; }
 
@@ -30,53 +29,43 @@ namespace Dyreværn.Pages
         [BindProperty]
         public DateTime VisitDate { get; set; }
 
-        // Bruges til at vise bekræftelse efter booking
+        // Viser bekræftelse efter booking
         public bool Success { get; set; } = false;
 
-        // Når siden indlæses via GET (før formularen sendes)
+        // GET – vis siden og find dyrets navn
         public void OnGet()
         {
-            // Opretter service og henter alle dyr
             AnimalService service = new AnimalService();
             List<Animal> animals = service.GetAllAnimals();
-            Animal selectedAnimal = null;
 
+            // Find dyret med det ID brugeren klikkede på
             foreach (Animal animal in animals)
             {
                 if (animal.Id == AnimalId)
                 {
-                    selectedAnimal = animal;
+                    AnimalName = animal.Name;
                     break;
                 }
             }
-
-            // Finder dyrets navn ud fra det valgte ID
-            if (selectedAnimal != null)
-            {
-                AnimalName = selectedAnimal.Name;
-            }
         }
 
-
-        // Når brugeren trykker "Book besøg" (POST)
+        // POST – håndter formular og gem booking
         public void OnPost()
         {
-            // Opret booking-objekt
-            Booking booking = new Booking();
-            booking.AnimalId = AnimalId;
-            booking.CustomerName = VisitorName;
+            // Opretter en ny booking
+            Visit booking = new Visit();
+            booking.VisitorName = VisitorName;
             booking.Email = Email;
+            booking.AnimalName = AnimalName;
             booking.VisitDate = VisitDate;
-            booking.Notes = "";
 
-            // Gem booking via BookingService
+            // Gem bookingen via service
             BookingService bookingService = new BookingService();
             bookingService.AddBooking(booking);
 
             // Vis bekræftelse
             Success = true;
         }
-
-
     }
 }
+

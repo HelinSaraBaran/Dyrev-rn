@@ -15,24 +15,20 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Dyr (ID)</th>
                 <th>Navn</th>
                 <th>Email</th>
+                <th>Dyr</th>
                 <th>Besøgsdato</th>
-                <th>Note</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Domain.Models.Booking booking in Model.Bookings)
+            @foreach (Domain.Models.Visit booking in Model.Bookings)
             {
                 <tr>
-                    <td>@booking.Id</td>
-                    <td>@booking.AnimalId</td>
-                    <td>@booking.CustomerName</td>
+                    <td>@booking.VisitorName</td>
                     <td>@booking.Email</td>
+                    <td>@booking.AnimalName</td>
                     <td>@booking.VisitDate.ToShortDateString()</td>
-                    <td>@booking.Notes</td>
                 </tr>
             }
         </tbody>

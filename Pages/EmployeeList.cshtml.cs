@@ -6,12 +6,13 @@ using System.Collections.Generic;
 
 namespace Dyreværn.Pages
 {
+    // PageModel til oversigt, tilføjelse og fjernelse af medarbejdere
     public class EmployeeListModel : PageModel
     {
-        // Liste med alle medarbejdere
+        // Liste med alle medarbejdere som vises i tabellen
         public List<Employee> Employees { get; set; } = new List<Employee>();
 
-        // Formularfelter til tilføjelse
+        // Formularfelter til tilføjelse af medarbejder
         [BindProperty]
         public string Name { get; set; }
 
@@ -21,43 +22,47 @@ namespace Dyreværn.Pages
         [BindProperty]
         public string Role { get; set; }
 
-        // Formularfelt til sletning
+        // Formularfelt til sletning (indtastet ID)
         [BindProperty]
         public int RemoveId { get; set; }
 
         // Service der håndterer medarbejderdata
         private EmployeeService _service = new EmployeeService();
 
-        // Kører når siden åbnes – henter alle medarbejdere
+        // Kører når siden vises (GET) – henter medarbejdere
         public void OnGet()
         {
-            Employees = _service.GetAllEmployees();
+            Employees = _service.GetAll();
         }
 
-        // Kører når man tilføjer en ny medarbejder
+        // Kører når brugeren tilføjer en ny medarbejder (POST)
         public IActionResult OnPostAdd()
         {
-            // Opretter nyt objekt og sætter data
-            Employee newEmployee = new Employee();
-            newEmployee.Name = Name;
-            newEmployee.Email = Email;
-            newEmployee.Role = Role;
+            if (!ModelState.IsValid)
+            {
+                Employees = _service.GetAll();
+                return Page();
+            }
 
-            // Tilføjer medarbejderen via service
-            _service.AddEmployee(newEmployee);
+            // Opretter ny medarbejder
+            Employee newEmployee = new Employee
+            {
+                Name = Name,
+                Email = Email,
+                Role = Role
+            };
 
-            // Går tilbage til siden (så vi undgår genindsendelse)
-            return RedirectToPage();
+            _service.Add(newEmployee);
+
+            return RedirectToPage(); // Genindlæs siden
         }
 
-        // Kører når man vil fjerne en medarbejder
+        // Kører når brugeren vil fjerne en medarbejder (POST)
         public IActionResult OnPostRemove()
         {
-            // Fjerner medarbejder med angivet ID
-            _service.RemoveEmployee(RemoveId);
+            _service.RemoveById(RemoveId);
 
-            // Går tilbage til siden
-            return RedirectToPage();
+            return RedirectToPage(); // Genindlæs siden
         }
     }
 }
