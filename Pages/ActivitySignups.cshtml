@@ -1,0 +1,31 @@
+﻿@page
+@model Dyreværn.Pages.ActivitySignupsModel
+@{
+    ViewData["Title"] = "Tilmeldinger til aktiviteter";
+}
+
+<!-- Sideoverskrift -->
+<h1 class="mt-4">Tilmeldinger til aktiviteter</h1>
+
+<!-- Tabel over alle tilmeldte personer -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Navn</th>
+            <th>E-mail</th>
+            <th>Aktivitet</th>
+            <th>Tilmeldt</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Domain.Models.ActivitySignup signup in Model.Signups)
+        {
+            <tr>
+                <td>@signup.Name</td>
+                <td>@signup.Email</td>
+                <td>@signup.Activity</td>
+                <td>@signup.SignupDate.ToString("dd-MM-yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>
