@@ -15,6 +15,10 @@
 <p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
 
 <h3>📋 Besøgslog</h3>
+<a href="/BookVisit/@Model.Animal.Id">
+    <button>Book et besøg</button>
+</a>
+
 
 @if (Model.Animal.VisitLog.Count == 0)
 {

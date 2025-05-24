@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
 using Service;
 using System;
+using Domain.Models;
+using Service;
+
 
 namespace Dyreværn.Pages
 {
@@ -58,22 +61,22 @@ namespace Dyreværn.Pages
         // Når brugeren trykker "Book besøg" (POST)
         public void OnPost()
         {
-            // Opretter nyt visit objekt med data fra formular
-            Visit newVisit = new Visit
-            {
-                VisitorName = VisitorName,
-                Email = Email,
-                VisitDate = VisitDate,
-                AnimalName = AnimalName
-            };
+            // Opret booking-objekt
+            Booking booking = new Booking();
+            booking.AnimalId = AnimalId;
+            booking.CustomerName = VisitorName;
+            booking.Email = Email;
+            booking.VisitDate = VisitDate;
+            booking.Notes = "";
 
-            // Tilføjer visit til den midlertidige liste
-            VisitService visitService = new VisitService();
-            visitService.AddVisit(newVisit);
+            // Gem booking via BookingService
+            BookingService bookingService = new BookingService();
+            bookingService.AddBooking(booking);
 
-            // Viser bekræftelse
+            // Vis bekræftelse
             Success = true;
         }
+
 
     }
 }
