@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
-using Domain.Models;       // Bruger Visit-modellen
+using Domain.Models;       
 using Service;
 
 namespace Dyreværn.Pages
@@ -14,11 +15,17 @@ namespace Dyreværn.Pages
         // Kører når siden åbnes – henter bookinger fra service
         public void OnGet()
         {
-            // Opretter service og henter alle bookinger
             BookingService service = new BookingService();
             Bookings = service.GetAllBookings();
         }
+
+        // Kører når der trykkes "Slet" – fjerner booking ud fra ID
+        public IActionResult OnPostDelete(int id)
+        {
+            BookingService service = new BookingService();
+            service.DeleteBooking(id);
+            return RedirectToPage(); // Genindlæser siden
+        }
     }
 }
-
 
