@@ -4,7 +4,6 @@
     ViewData["Title"] = "Tilmeldinger til aktiviteter";
 }
 
-<!-- Sideoverskrift -->
 <h1 class="mt-4">Tilmeldinger til aktiviteter</h1>
 
 <!-- Tabel over alle tilmeldte personer -->
@@ -15,16 +14,23 @@
             <th>E-mail</th>
             <th>Aktivitet</th>
             <th>Tilmeldt</th>
+            <th></th> <!-- Kolonne til slet-knap -->
         </tr>
     </thead>
     <tbody>
-        @foreach (Domain.Models.ActivitySignup signup in Model.Signups)
+        @for (int i = 0; i < Model.Signups.Count; i++)
         {
             <tr>
-                <td>@signup.Name</td>
-                <td>@signup.Email</td>
-                <td>@signup.Activity</td>
-                <td>@signup.SignupDate.ToString("dd-MM-yyyy HH:mm")</td>
+                <td>@Model.Signups[i].Name</td>
+                <td>@Model.Signups[i].Email</td>
+                <td>@Model.Signups[i].Activity</td>
+                <td>@Model.Signups[i].SignupDate.ToString("dd-MM-yyyy HH:mm")</td>
+                <td>
+                    <form method="post" asp-page-handler="RemoveSignup" class="d-inline">
+                        <input type="hidden" name="IndexToRemove" value="@i" />
+                        <button type="submit" class="btn btn-sm btn-danger">Slet</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

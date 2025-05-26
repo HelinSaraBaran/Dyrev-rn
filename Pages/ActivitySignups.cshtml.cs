@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Domain.Models;
 using Service;
@@ -8,18 +9,37 @@ namespace Dyreværn.Pages
     // PageModel for siden, der viser alle tilmeldinger til aktiviteter
     public class ActivitySignupsModel : PageModel
     {
-        // Liste til at holde alle aktivitetstilmeldinger
+        // Liste med alle tilmeldinger
         public List<ActivitySignup> Signups { get; set; } = new List<ActivitySignup>();
 
-        // Metode der kaldes når siden indlæses (GET)
+        // Index på den tilmelding der skal fjernes (fra formular)
+        [BindProperty]
+        public int IndexToRemove { get; set; }
+
         public void OnGet()
         {
-            // Opretter service-instans for at hente data
+            // Henter alle tilmeldinger via service
             ActivitySignupService service = new ActivitySignupService();
-
-            // Henter alle tilmeldinger via service og gemmer i Signups
             Signups = service.GetAllSignups();
+        }
+
+        // POST – fjerner en tilmelding ud fra index
+        public IActionResult OnPostRemoveSignup()
+        {
+            ActivitySignupService service = new ActivitySignupService();
+            List<ActivitySignup> allSignups = service.GetAllSignups();
+
+            // Fjern tilmelding hvis index er gyldigt
+            if (IndexToRemove >= 0 && IndexToRemove < allSignups.Count)
+            {
+                allSignups.RemoveAt(IndexToRemove);
+                service.SaveAll(allSignups);
+            }
+
+            Signups = allSignups; // Opdater listen til visning
+            return RedirectToPage(); // Genindlæs siden
         }
     }
 }
+
 
