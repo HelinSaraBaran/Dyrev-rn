@@ -29,13 +29,19 @@
     else
     {
         <ul>
-            @foreach (Domain.Models.VisitLogEntry log in Model.Animal.VisitLog)
+            @for (int i = 0; i < Model.Animal.VisitLog.Count; i++)
             {
                 <li>
-                    <strong>@log.Date.ToString("dd-MM-yyyy HH:mm")</strong> –
-                    @log.Type: @log.Notes
+                    <strong>@Model.Animal.VisitLog[i].Date.ToString("dd-MM-yyyy HH:mm")</strong> –
+                    @Model.Animal.VisitLog[i].Type: @Model.Animal.VisitLog[i].Notes
+
+                    <form method="post" asp-page-handler="RemoveVisit" asp-route-id="@Model.Animal.Id" class="d-inline">
+                        <input type="hidden" name="IndexToRemove" value="@i" />
+                        <button type="submit" class="btn btn-sm btn-danger">Slet</button>
+                    </form>
                 </li>
             }
+
         </ul>
     }
 

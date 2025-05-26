@@ -7,14 +7,14 @@ using System;
 
 namespace Dyreværn.Pages
 {
-    // PageModel til detaljeret visning af et dyr og tilføjelse af besøgslog
+    // PageModel til detaljeret visning af et dyr og håndtering af besøgslog
     public class AdoptDetailsModel : PageModel
     {
-        private AnimalService _service = new AnimalService(); // Service til at hente og gemme dyr
+        private AnimalService _service = new AnimalService(); // Service til håndtering af dyr
 
-        public Animal Animal { get; set; } // Dyret der vises på siden
+        public Animal Animal { get; set; } // Det valgte dyr der vises på siden
 
-        // Formularfelter til besøgslog
+        // Formularfelter til tilføjelse af besøg
         [BindProperty]
         public DateTime VisitDate { get; set; }     // Dato for besøget
 
@@ -24,43 +24,46 @@ namespace Dyreværn.Pages
         [BindProperty]
         public string VisitNotes { get; set; }      // Noter om besøget
 
+        // Formularfelt til sletning af specifik log-post (index i listen)
+        [BindProperty]
+        public int IndexToRemove { get; set; }      // Index for besøg der skal fjernes
+
+        // GET – viser dyrets detaljer
         public IActionResult OnGet(int id)
         {
-            // Henter alle dyr
             List<Animal> animals = _service.GetAllAnimals();
 
-            // Finder det ønskede dyr ud fra ID
             for (int i = 0; i < animals.Count; i++)
             {
                 if (animals[i].Id == id)
                 {
                     Animal = animals[i];
-                    return Page(); // Viser detaljesiden
+                    return Page();
                 }
             }
 
             return NotFound(); // Hvis dyret ikke findes
         }
 
+        // POST – tilføjer en ny besøgslog-post
         public IActionResult OnPost(int id)
         {
-            // Henter alle dyr
             List<Animal> animals = _service.GetAllAnimals();
 
-            // Finder det ønskede dyr
             for (int i = 0; i < animals.Count; i++)
             {
                 if (animals[i].Id == id)
                 {
                     Animal = animals[i];
 
-                    // Opret ny post til besøgsloggen
-                    VisitLogEntry newEntry = new VisitLogEntry();
-                    newEntry.Date = VisitDate;
-                    newEntry.Type = VisitType;
-                    newEntry.Notes = VisitNotes;
+                    // Opretter ny post og tilføjer den til dyrets besøgslog
+                    VisitLogEntry newEntry = new VisitLogEntry
+                    {
+                        Date = VisitDate,
+                        Type = VisitType,
+                        Notes = VisitNotes
+                    };
 
-                    // Tilføj besøget og gem hele listen
                     Animal.VisitLog.Add(newEntry);
                     _service.SaveAnimals(animals);
 
@@ -68,7 +71,32 @@ namespace Dyreværn.Pages
                 }
             }
 
-            return NotFound(); // Hvis dyret ikke findes
+            return NotFound();
+        }
+
+        // POST – fjerner en specifik besøgslog-post
+        public IActionResult OnPostRemoveVisit(int id)
+        {
+            List<Animal> animals = _service.GetAllAnimals();
+
+            for (int i = 0; i < animals.Count; i++)
+            {
+                if (animals[i].Id == id)
+                {
+                    Animal = animals[i];
+
+                    // Sikrer at index er gyldigt og fjerner posten
+                    if (IndexToRemove >= 0 && IndexToRemove < Animal.VisitLog.Count)
+                    {
+                        Animal.VisitLog.RemoveAt(IndexToRemove);
+                        _service.SaveAnimals(animals);
+                    }
+
+                    return RedirectToPage(new { id = id }); // Genindlæs siden
+                }
+            }
+
+            return NotFound();
         }
     }
 }
