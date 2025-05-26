@@ -1,76 +1,86 @@
 ﻿@page "{id:int}"
 @model Dyreværn.Pages.AdoptDetailsModel
+
 @{
     ViewData["Title"] = "Detaljer for " + Model.Animal.Name;
 }
 
+<!-- 🔗 Tilføjer CSS-styling -->
+<link rel="stylesheet" href="~/css/adopter.css" />
+
 <h1>@Model.Animal.Name</h1>
 
-<div class="animal-details">
-    <img src="@Model.Animal.ImagePath" alt="@Model.Animal.Name" class="img-fluid mb-3" width="250" />
+@if (Model.Animal != null)
+{
+    <div class="animal-details">
+        <img src="@Url.Content("~/" + Model.Animal.ImagePath)" alt="@Model.Animal.Name" class="img-fluid mb-3" width="250" />
 
-    <p><strong>Art:</strong> @Model.Animal.Species</p>
-    <p><strong>Race:</strong> @Model.Animal.Race</p>
-    <p><strong>Køn:</strong> @Model.Animal.Gender</p>
-    <p><strong>Størrelse:</strong> @Model.Animal.Size</p>
-    <p><strong>Fødselsår:</strong> @Model.Animal.BirthYear</p>
-    <p><strong>Chipnummer:</strong> @Model.Animal.ChipNumber</p>
-    <p><strong>Særlige kendetegn:</strong> @Model.Animal.SpecialMarks</p>
-    <p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
-    <p><strong>Steriliseret:</strong> @(Model.Animal.IsSterilized ? "✅" : "❌")</p>
-    <p><strong>Vaccineret:</strong> @(Model.Animal.IsVaccinated ? "✅" : "❌")</p>
+        <p><strong>Art:</strong> @Model.Animal.Species</p>
+        <p><strong>Race:</strong> @Model.Animal.Race</p>
+        <p><strong>Køn:</strong> @Model.Animal.Gender</p>
+        <p><strong>Størrelse:</strong> @Model.Animal.Size</p>
+        <p><strong>Fødselsår:</strong> @Model.Animal.BirthYear</p>
+        <p><strong>Chipnummer:</strong> @Model.Animal.ChipNumber</p>
+        <p><strong>Særlige kendetegn:</strong> @Model.Animal.SpecialMarks</p>
+        <p><strong>Beskrivelse:</strong> @Model.Animal.Description</p>
+        <p><strong>Steriliseret:</strong> @(Model.Animal.IsSterilized ? "✅" : "❌")</p>
+        <p><strong>Vaccineret:</strong> @(Model.Animal.IsVaccinated ? "✅" : "❌")</p>
 
-    <h3 class="mt-4">📋 Besøgslog</h3>
+        <h3 class="mt-4">📋 Besøgslog</h3>
 
-    @if (Model.Animal.VisitLog.Count == 0)
-    {
-        <p>Ingen registrerede besøg endnu.</p>
-    }
-    else
-    {
-        <ul>
-            @for (int i = 0; i < Model.Animal.VisitLog.Count; i++)
-            {
-                <li>
-                    <strong>@Model.Animal.VisitLog[i].Date.ToString("dd-MM-yyyy HH:mm")</strong> –
-                    @Model.Animal.VisitLog[i].Type: @Model.Animal.VisitLog[i].Notes
+        @if (Model.Animal.VisitLog.Count == 0)
+        {
+            <p>Ingen registrerede besøg endnu.</p>
+        }
+        else
+        {
+            <ul>
+                @for (int i = 0; i < Model.Animal.VisitLog.Count; i++)
+                {
+                    <li>
+                        <strong>@Model.Animal.VisitLog[i].Date.ToString("dd-MM-yyyy HH:mm")</strong> –
+                        @Model.Animal.VisitLog[i].Type: @Model.Animal.VisitLog[i].Notes
 
-                    <form method="post" asp-page-handler="RemoveVisit" asp-route-id="@Model.Animal.Id" class="d-inline">
-                        <input type="hidden" name="IndexToRemove" value="@i" />
-                        <button type="submit" class="btn btn-sm btn-danger">Slet</button>
-                    </form>
-                </li>
-            }
+                        <form method="post" asp-page-handler="RemoveVisit" asp-route-id="@Model.Animal.Id" class="d-inline">
+                            <input type="hidden" name="IndexToRemove" value="@i" />
+                            <button type="submit" class="btn btn-sm btn-danger">Slet</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        }
 
-        </ul>
-    }
+        <h4 class="mt-4">➕ Tilføj nyt besøg</h4>
 
-    <h4 class="mt-4">➕ Tilføj nyt besøg</h4>
+        <form method="post">
+            <div class="mb-2">
+                <label for="VisitDate">Dato:</label>
+                <input type="datetime-local" asp-for="VisitDate" class="form-control" required />
+            </div>
 
-    <form method="post">
-        <div class="mb-2">
-            <label for="VisitDate">Dato:</label>
-            <input type="datetime-local" asp-for="VisitDate" class="form-control" required />
-        </div>
+            <div class="mb-2">
+                <label for="VisitType">Type:</label>
+                <select asp-for="VisitType" class="form-select" required>
+                    <option value="">-- Vælg type --</option>
+                    <option>Dyrlægebesøg</option>
+                    <option>Kunde</option>
+                    <option>Vaccination</option>
+                    <option>Andet</option>
+                </select>
+            </div>
 
-        <div class="mb-2">
-            <label for="VisitType">Type:</label>
-            <select asp-for="VisitType" class="form-select" required>
-                <option value="">-- Vælg type --</option>
-                <option>Dyrlægebesøg</option>
-                <option>Kunde</option>
-                <option>Vaccination</option>
-                <option>Andet</option>
-            </select>
-        </div>
+            <div class="mb-2">
+                <label for="VisitNotes">Noter:</label>
+                <textarea asp-for="VisitNotes" class="form-control" rows="3" required></textarea>
+            </div>
 
-        <div class="mb-2">
-            <label for="VisitNotes">Noter:</label>
-            <textarea asp-for="VisitNotes" class="form-control" rows="3" required></textarea>
-        </div>
+            <button type="submit" class="btn btn-primary">Tilføj besøg</button>
+        </form>
 
-        <button type="submit" class="btn btn-primary">Tilføj besøg</button>
-    </form>
-
-    <a href="/Adopt" class="btn btn-secondary mt-3">Tilbage</a>
-</div>
+        <a href="/Adopt" class="btn btn-secondary mt-3">Tilbage</a>
+    </div>
+}
+else
+{
+    <p>Kunne ikke finde dyret.</p>
+}

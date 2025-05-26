@@ -36,3 +36,77 @@
     .animal-card .btn {
         margin-top: 5px;
     }
+/* === Detaljeside for enkelt dyr === */
+.animal-details {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+    .animal-details img {
+        display: block;
+        margin: 0 auto 20px auto;
+        border-radius: 8px;
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .animal-details p {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    .animal-details h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .animal-details h3,
+    .animal-details h4 {
+        margin-top: 30px;
+        color: #444;
+    }
+
+    .animal-details ul {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+        .animal-details ul li {
+            margin-bottom: 10px;
+            background-color: #f3f3f3;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+    .animal-details form {
+        margin-top: 15px;
+    }
+
+    .animal-details .form-control,
+    .animal-details .form-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .animal-details button {
+        margin-top: 10px;
+    }
+
+    .animal-details .btn-danger {
+        margin-left: 10px;
+    }
+
+    .animal-details .btn-primary,
+    .animal-details .btn-secondary {
+        margin-top: 15px;
+    }
