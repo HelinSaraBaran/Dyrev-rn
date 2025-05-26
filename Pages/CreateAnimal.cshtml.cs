@@ -5,13 +5,15 @@ using Service;
 
 namespace Dyreværn.Pages
 {
+    // PageModel til oprettelse af et nyt dyr i systemet
     public class CreateAnimalModel : PageModel
     {
         [BindProperty]
-        public Animal Animal { get; set; }
+        public Animal Animal { get; set; } // Formularbinding til dyret der oprettes
 
         private AnimalService _animalService;
 
+        // Constructor – initialiserer service
         public CreateAnimalModel()
         {
             _animalService = new AnimalService();
@@ -19,18 +21,22 @@ namespace Dyreværn.Pages
 
         public void OnGet()
         {
-            Animal = new Animal();
+            Animal = new Animal(); // Opretter tomt dyr-objekt til formularen
         }
 
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Page(); // Vis siden igen hvis der er valideringsfejl
             }
 
+            // Tilføjer dyret via service
             _animalService.AddAnimal(Animal);
-            return RedirectToPage("/AnimalList"); // Skift til korrekt side hvis du ikke har AnimalList
+
+            // Går til oversigtsside (kan ændres til den ønskede side)
+            return RedirectToPage("/AnimalList");
         }
     }
 }
+
