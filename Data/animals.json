@@ -9,7 +9,7 @@
     "SpecialMarks": null,
     "Size": null,
     "BirthYear": 0,
-    "IsSterilized": false,
+    "IsSterilized": true,
     "IsVaccinated": false,
     "ImagePath": "images/bella.jpg",
     "Description": "En legesyg og k\u00E6rlig hund",
@@ -18,6 +18,11 @@
         "Date": "0001-01-01T00:00:00",
         "Type": "Dyrl\u00E6gebes\u00F8g",
         "Notes": "nbdj\u00E6"
+      },
+      {
+        "Date": "0001-01-19T03:00:00",
+        "Type": "Dyrl\u00E6gebes\u00F8g",
+        "Notes": "L\u00E6ge kommer"
       }
     ]
   },
@@ -31,8 +36,8 @@
     "SpecialMarks": null,
     "Size": null,
     "BirthYear": 0,
-    "IsSterilized": false,
-    "IsVaccinated": false,
+    "IsSterilized": true,
+    "IsVaccinated": true,
     "ImagePath": "images/milo.jpg",
     "Description": "En rolig og nysgerrig kat",
     "VisitLog": []
